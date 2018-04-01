@@ -8,20 +8,13 @@ BH1750传感器使用IIC接口，仅需两根信号线即可与arduino通信。
 
 
 ## 简介
-
-The BH1750 has six different measurement modes which are divided in two groups;
-continuous and one-time measurements. In continuous mode the sensor
-continuously measures lightness value. In one-time mode, the sensor makes only
-one measurement and then goes into Power Down mode.
-
-Each mode has three different precisions:
-
-  - Low Resolution Mode - (4 lx precision, 16ms measurement time)
-  - High Resolution Mode - (1 lx precision, 120ms measurement time)
-  - High Resolution Mode 2 - (0.5 lx precision, 120ms measurement time)
-
-By default, this library uses Continuous High Resolution Mode, but you can
-change this to a different mode by passing the mode argument to
+BH1750有两组共6种不同的测量模式。分为持续型和单次型，
+持续型可以持续地测光线亮度，而单次型在测试完一次后就处于关闭状态。
+每种类型都有三种不同的精度：
+- 低分辨率模式 - (精度为4lx ,测试时间为16ms)
+  - 一级高精度模式 - (精度为1 lx , 测试时间为120ms)
+  - 二级高精度模式 - (0.5 lx precision, 测试时间为120ms)
+默认情况下，该库使用持续型一级高精度模式，你也可以通过程序切换模块。
 BH1750.begin().
 
 When the One-Time mode is used your sensor will go into Power Down mode when
@@ -31,7 +24,7 @@ back into One-Time mode. This library has been implemented to automatically
 reconfigure the sensor when you next attempt a measurement so you should not
 have to worry about such low level details.
 
-The datasheet for the BH1750 chip can be obtained [here](http://www.elechouse.com/elechouse/images/product/Digital%20light%20Sensor/bh1750fvi-e.pdf)
+BH1750数据手册 [here](http://www.elechouse.com/elechouse/images/product/Digital%20light%20Sensor/bh1750fvi-e.pdf)
 
 
 ## 安装
@@ -56,16 +49,13 @@ mode when making light measurements.
   - SCL -> SCL (A5 on Arduino Nano, Uno, Leonardo, etc or 21 on Mega and Due, on esp8266 free selectable)
   - SDA -> SDA (A4 on Arduino Nano, Uno, Leonardo, etc or 20 on Mega and Due, on esp8266 free selectable)
   - ADD -> NC/GND or VCC (see below)
+ADD管脚是IIC地址选择管脚。默认情况下（ADD管脚电压低于VCC的0.7倍），则传感器的IIC地址为0x23，如果电压高于VCC的0.7倍（比如直接将ADD接到VCC），则地址为0x5C。
 
-The ADD pin is used to set the sensor I2C address. By default (if ADD voltage
-less than 0.7 * VCC) the sensor address will be 0x23. If it has voltage
-greater or equal to 0.7VCC voltage (e.g. you've connected it to VCC) the
-sensor address will be 0x5C.
 模块与arduino的连接图如下
+
 ![Example wiring diagram image](resources/wiring-diagram-gy30-module.png)
 
-*The image above was created using [Fritzing](http://fritzing.org/home/) and
-the GY-30 module was obtained from [here](http://omnigatherum.ca/wp/?p=6)*.
+*以上图片用 [Fritzing](http://fritzing.org/home/) 设计。*.
 
 ### 程序
 将以下程序上传到arduino.
